@@ -7,10 +7,9 @@ import { ProductRepository } from "../model/product.repository";
     templateUrl: "store.component.html"
 })
 export class StoreComponent {
-  public selectedCategory = null;
-  public productsPerPage = 4;
-  public selectedPage = 1;
-
+    public selectedCategory = null;
+    public productsPerPage = 4;
+    public selectedPage = 1;
 
     constructor(private repository: ProductRepository) {}
 
@@ -23,9 +22,10 @@ export class StoreComponent {
     get categories(): string[] {
         return this.repository.getCategories();
     }
-    changeCategory(newCategory?:string){
-      this.selectedCategory = newCategory;
-     }
+
+    changeCategory(newCategory?: string) {
+        this.selectedCategory = newCategory;
+    }
 
     changePage(newPage: number) {
         this.selectedPage = newPage;
@@ -35,10 +35,15 @@ export class StoreComponent {
         this.productsPerPage = Number(newSize);
         this.changePage(1);
     }
-     get pageNumbers(): number[] {
-        return Array(Math.ceil(this.repository
-            .getProducts(this.selectedCategory).length / this.productsPerPage))
-                .fill(0).map((x, i) => i + 1);
-    }
-}
 
+    get pageCount(): number {
+        return Math.ceil(this.repository
+            .getProducts(this.selectedCategory).length / this.productsPerPage)
+    }
+
+    //get pageNumbers(): number[] {
+    //    return Array(Math.ceil(this.repository
+    //        .getProducts(this.selectedCategory).length / this.productsPerPage))
+    //            .fill(0).map((x, i) => i + 1);
+    //}
+}
